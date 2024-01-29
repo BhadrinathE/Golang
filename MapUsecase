@@ -1,0 +1,57 @@
+package main
+
+import (
+	"fmt"
+)
+
+func removeElement(dataMap map[string][]string, key string, element string) {
+	// Find the index of the element in the array
+	index := -1
+	for i, value := range dataMap[key] {
+		if value == element {
+			index = i
+			break
+		}
+	}
+	// If the element is found, remove it from the array using slicing
+	if index != -1 {
+		dataMap[key] = append(dataMap[key][:index], dataMap[key][index+1:]...)
+	}
+}
+
+func main() {
+	// Create a map with string keys and values as arrays of integers
+	dataMap := make(map[string][]string)
+
+	// Add data to the map
+	dataMap["7750_SR"] = []string{"sr_1s", "sr_2s", "sr12"}
+	dataMap["7250_IXR"] = []string{"ixr_6", "ixr_e", "ixr_e2"}
+	dataMap["7450_ESS"] = []string{"ess_7", "ess_12"}
+
+	// Access and print data from the map
+	fmt.Println("Data for 7750SR:", dataMap["7750_SR"])
+	fmt.Println("Data for 7250IXR:", dataMap["7250_IXR"])
+	fmt.Println("Data for 7450ESS:", dataMap["7450_ESS"])
+
+	// Update data in the map
+	dataMap["7750_SR"] = append(dataMap["7750_SR"], "sr_7s")
+
+	// Print updated data for 7750SR
+	fmt.Println("Updated data for 7750SR:", dataMap["7750_SR"])
+
+	// Check if a key exists in the map
+	key := "7250_IXR"
+	if _, exists := dataMap[key]; exists {
+		fmt.Println(key, "exists in the map with data:", dataMap[key])
+	} else {
+		fmt.Println(key, "does not exist in the map.")
+	}
+
+	removeElement(dataMap, "7750_SR", "sr_2s")
+
+	// Access and print data from the map
+	fmt.Println("Data for 7750SR:", dataMap["7750_SR"])
+	fmt.Println("Data for 7250IXR:", dataMap["7250_IXR"])
+	fmt.Println("Data for 7450ESS:", dataMap["7450_ESS"])
+
+}
