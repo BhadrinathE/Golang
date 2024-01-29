@@ -1,0 +1,74 @@
+package main
+
+import "fmt"
+
+// Event represents an event with a name and date
+type Event struct {
+	Name    string
+	Date    string
+	contact string
+}
+
+// TeamMember represents a member of a team with a name and role
+type TeamMember struct {
+	Name string
+	Role string
+}
+
+// Team represents a team with a name, leader, and members
+type Team struct {
+	Name    string
+	Leader  TeamMember
+	Members []TeamMember
+}
+
+// OrganizedEvent represents an organized event with details about the event and participating teams
+type OrganizedEvent struct {
+	Event
+	Teams []Team
+}
+
+func main() {
+	// Create an event
+	myEvent := Event{
+		Name: " NSP Sankranti Event",
+		Date: "2024-01-29",
+	}
+
+	// Create teams and team members
+	team1 := Team{
+		Name:   "Team A",
+		Leader: TeamMember{Name: "John Doe", Role: "Team Leader"},
+		Members: []TeamMember{
+			{Name: "Alice Smith", Role: "Developer"},
+			{Name: "Bob Johnson", Role: "Designer"},
+		},
+	}
+
+	team2 := Team{
+		Name:   "Team B",
+		Leader: TeamMember{Name: "Jane Doe", Role: "Team Leader"},
+		Members: []TeamMember{
+			{Name: "Charlie Brown", Role: "Tester"},
+			{Name: "Diana Williams", Role: "Architect"},
+		},
+	}
+
+	// Create an organized event
+	organizedEvent := OrganizedEvent{
+		Event: myEvent,
+		Teams: []Team{team1, team2},
+	}
+
+	// Display information about the organized event
+	fmt.Printf("Event: %s\nDate: %s\n\nTeams:\n", organizedEvent.Name, organizedEvent.Date)
+	for _, team := range organizedEvent.Teams {
+		fmt.Printf("- Team %s\n", team.Name)
+		fmt.Printf("  Leader: %s (%s)\n", team.Leader.Name, team.Leader.Role)
+		fmt.Println("  Members:")
+		for _, member := range team.Members {
+			fmt.Printf("    %s (%s)\n", member.Name, member.Role)
+		}
+		fmt.Println()
+	}
+}
